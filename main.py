@@ -54,6 +54,8 @@ class data:
         while True:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:
+                    self.df.sort_values[by="Sales"] # type: ignore
             except:
                 pass
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
