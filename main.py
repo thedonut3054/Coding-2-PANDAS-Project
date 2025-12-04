@@ -22,8 +22,12 @@ class data:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
                     self.filterMain()
+<<<<<<< HEAD
                 elif o == 2:
                     self.sortMain()
+=======
+                    break
+>>>>>>> 14fe214 (slight changes)
             except:
                 pass
     def filterMain(self):
@@ -39,9 +43,11 @@ class data:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
-                    self.filterMain()
+                    self.filterSales()
+                    break
             except:
                 pass
+<<<<<<< HEAD
     def sortMain():
         print("DataFrame Sorting Options")
         print("  1. Sales")
@@ -58,5 +64,9 @@ class data:
                     self.df.sort_values[by="Sales"] # type: ignore
             except:
                 pass
+=======
+    def filterSales(self): 
+        pass
+>>>>>>> 14fe214 (slight changes)
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 df.options()
