@@ -31,5 +31,14 @@ class data:
         print("  3. Year")
         print("  4. Platform")
         print("  5. Save and return")
+        print()
+        o = None
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:
+                    self.filterMain()
+            except:
+                pass
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 df.options()
