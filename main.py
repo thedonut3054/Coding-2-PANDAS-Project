@@ -110,8 +110,12 @@ class data:
             if self.GSFO_Greater_Than == True:
                 return(f"GREATER THAN {self.GSFO_Sales_Amount}")
         print("DataFrame Global Sales Filter Options: ")
+        print(f"  1. Greater Than == {str(self.GSFO_Greater_Than)}")
+        print(f"  2. Threshold = {str(self.GSFO_Sales_Amount)}")
+        print(f"  3. Save and Return")
+        print()
         print(f"  Only Show entries with {GSFOptions()} sales")
-                    
+        print()
     def advancedMain(self):
         print("Advanced DataFrame options")
         print("Make Sales Integers")
@@ -119,7 +123,6 @@ class data:
         print("other option idk")
         o = None
         while True:
-
             o = int(input("Enter the number of the option you want to select: "))
             if o == 1:
                 pass
@@ -127,7 +130,6 @@ class data:
                 pass
             elif o == 3:
                 pass
-            
   
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 df.options() # what is this here for
