@@ -24,9 +24,8 @@ class data:
                     self.filterMain()
                 elif o == 2:
                     self.sortMain()
-                    break
-                elif o == 2:
-                    self.sortMain()
+                # elif o == 2:
+                #     self.sortMain() no need for two of these
             except:
                 pass
     def filterMain(self):
@@ -46,7 +45,7 @@ class data:
                     break
             except:
                 pass
-    def sortMain():
+    def sortMain(self):
         print("DataFrame Sorting Options")
         print("  1. Sales")
         print("  2. Genre")
@@ -59,24 +58,48 @@ class data:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
-                    self.df.sort_values[by="Sales"] # type: ignore
+                    print("Sorted By Sales!")
+                    self.sortMain()
+                    break
+                elif o == 2:
+                    print("Sorted By Genre!")
+                    self.sortMain()
+                    break
+                elif o == 3:
+                    print("Sorted By Year!")
+                    self.sortMain
+                    break
+                elif o == 4:
+                    print("Sorted By Platform!")
+                    self.sortMain()
+                    break
+                elif o == 5:
+                    print("Saved Renturning To Home!")
+                    self.options()
+                    break
+                else:
+                    print("Invalid Input Try Again")
+                    self.sortMain()
+                    break
             except:
                 pass
-    def filterSales(self): 
-        pass
-    def sortMain():
-        print("DataFrame Sorting Options")
-        print("  1. Sales")
-        print("  2. Genre")
-        print("  3. Year")
-        print("  4. Platform")
-        print("  5. Save and return")
-        print()
-        o = None
-        while True:
-            try:
-                o = int(input("Enter the number of the option you want to select: "))
-            except:
-                pass
+    # def filterSales(self): 
+    #     pass
+    # def sortMain():
+    #     print("DataFrame Sorting Options")
+    #     print("  1. Sales")
+    #     print("  2. Genre")
+    #     print("  3. Year")
+    #     print("  4. Platform")
+    #     print("  5. Save and return")
+    #     print()
+    #     o = None
+    #     while True:
+    #         try:
+    #             o = int(input("Enter the number of the option you want to select: "))
+    #         except:
+    #             pass
+# im pretty sure lines 66 through 81 should not be here? so ive comented them out for now
+
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
-df.options()
+df.options() # what is this here for
