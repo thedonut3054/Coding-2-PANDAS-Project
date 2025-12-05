@@ -46,7 +46,7 @@ class data:
             except:
                 pass
     def sortMain(self):
-        print("DataFrame Sorting Options")
+        print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
         print("  1. Sales")
         print("  2. Genre")
         print("  3. Year")
@@ -58,7 +58,8 @@ class data:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
-                    print("Sorted By Sales!")
+                    print("Sorted By Sales!") # Should sales take us to another menu for where sales are like NA or EU
+                    # self.df.sort_values["Global_Sales"]
                     self.sortMain()
                     break
                 elif o == 2:
@@ -67,7 +68,7 @@ class data:
                     break
                 elif o == 3:
                     print("Sorted By Year!")
-                    self.sortMain
+                    self.sortMain()
                     break
                 elif o == 4:
                     print("Sorted By Platform!")
@@ -83,6 +84,11 @@ class data:
                     break
             except:
                 pass
+    def advancedMain(self):
+        print("Advanced DataFrame options")
+        print("Make Sales Integers")
+        print("Make Sales Floats")
+        print("other option idk")
     # def filterSales(self): 
     #     pass
     # def sortMain():
