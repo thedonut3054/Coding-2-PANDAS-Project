@@ -29,6 +29,8 @@ class data:
                 # elif o == 2:
                 #     self.sortMain() no need for two of these
                     break
+                # elif o == 2:
+                #     self.sortMain() no need for two of these
             except:
                 pass
     def filterMain(self):
@@ -52,6 +54,7 @@ class data:
         print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
         print("DataFrame Sorting Options: ")
         print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
+        print("DataFrame Sorting Options")
         print("  1. Sales")
         print("  2. Year")
         print("  3. Title")
@@ -122,23 +125,5 @@ class data:
         print("Make Sales Integers")
         print("Make Sales Floats")
         print("other option idk")
-    # def filterSales(self): 
-    #     pass
-    # def sortMain():
-    #     print("DataFrame Sorting Options")
-    #     print("  1. Sales")
-    #     print("  2. Genre")
-    #     print("  3. Year")
-    #     print("  4. Platform")
-    #     print("  5. Save and return")
-    #     print()
-    #     o = None
-    #     while True:
-    #         try:
-    #             o = int(input("Enter the number of the option you want to select: "))
-    #         except:
-    #             pass
-# im pretty sure lines 66 through 81 should not be here? so ive comented them out for now
-
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 df.options() # what is this here for
