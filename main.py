@@ -31,29 +31,14 @@ class data:
                 else:
                     print("Invalid Input Let's Try Agian")
                     self.options()
-                # elif o == 2:
-                #     self.sortMain() no need for two of these
-<<<<<<< HEAD
-                    break
-                # elif o == 2:
-                #     self.sortMain() no need for two of these
-=======
-<<<<<<< HEAD
-=======
-                    break
-                # elif o == 2:
-                #     self.sortMain() no need for two of these
->>>>>>> d43c461 (Made more ui changes and got the ui working for sorting!)
->>>>>>> cc74e8e (Made more ui changes and got the ui working for sorting!)
             except:
-                pass
+                    pass
     def filterMain(self):
         print("DataFrame Filter Options:")
         print("  1. Sales")
-        print("  2. Genre")
-        print("  3. Year")
-        print("  4. Platform")
-        print("  5. Save and return")
+        print("  2. Year")
+        print("  3. Platform")
+        print("  4. Save and return")
         print()
         o = None
         while True:
@@ -66,18 +51,6 @@ class data:
                 pass
     def sortMain(self):
         print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
-<<<<<<< HEAD
-        print("DataFrame Sorting Options: ")
-        print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
-        print("DataFrame Sorting Options")
-=======
-<<<<<<< HEAD
-=======
-        print("DataFrame Sorting Options: ")
-        print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
-        print("DataFrame Sorting Options")
->>>>>>> d43c461 (Made more ui changes and got the ui working for sorting!)
->>>>>>> cc74e8e (Made more ui changes and got the ui working for sorting!)
         print("  1. Sales")
         print("  2. Year")
         print("  3. Title")
@@ -90,21 +63,17 @@ class data:
                 if o == 1:    
                     print("Sorted By Sales!") # Should sales take us to another menu for where sales are like NA or EU
                     # self.df.sort_values["Global_Sales"]
-                    self.sortMain()
+                    self.filterSales()
                     break
                 elif o == 2:
-                    print("Sorted By Genre!")
-                    self.sortMain()
-                    break
-                elif o == 3:
                     print("Sorted By Year!")
                     self.sortMain()
                     break
-                elif o == 4:
+                elif o == 3:
                     print("Sorted By Platform!")
                     self.sortMain()
                     break
-                elif o == 5:
+                elif o == 4:
                     print("Saved Renturning To Home!")
                     self.options()
                     break
@@ -119,7 +88,6 @@ class data:
         print("Make Sales Integers")
         print("Make Sales Floats")
         print("other option idk")
-<<<<<<< HEAD
     def filterSales(self): 
         print("DataFrame Sales Filter Options: ")
         print("  1. Global Sales")
@@ -149,10 +117,9 @@ class data:
         print("Make Sales Integers")
         print("Make Sales Floats")
         print("other option idk")
-=======
         o = None
         while True:
-<<<<<<< HEAD
+
             o = int(input("Enter the number of the option you want to select: "))
             if o == 1:
                 pass
@@ -160,47 +127,7 @@ class data:
                 pass
             elif o == 3:
                 pass
-    # def filterSales(self): 
-    #     pass
-    # def sortMain():
-    #     print("DataFrame Sorting Options")
-    #     print("  1. Sales")
-    #     print("  2. Genre")
-    #     print("  3. Year")
-    #     print("  4. Platform")
-    #     print("  5. Save and return")
-    #     print()
-    #     o = None
-    #     while True:
-    #         try:
-    #             o = int(input("Enter the number of the option you want to select: "))
-    #         except:
-    #             pass
-# im pretty sure lines 66 through 81 should not be here? so ive comented them out for now
-
-<<<<<<< HEAD
->>>>>>> 04a5df7 (im commiting something)
-=======
-=======
-            try:
-                o = int(input("Enter the number of the option you want to select: "))
-                if o == 1:
-                    self.filterGlobalSales()
-            except:
-                pass        
-    def filterGlobalSales(self):
-        def GSFOptions():
-            if self.GSFO_Greater_Than == True:
-                return(f"GREATER THAN {self.GSFO_Sales_Amount}")
-        print("DataFrame Global Sales Filter Options: ")
-        print(f"  Only Show entries with {GSFOptions()} sales")
-                    
-    def advancedMain(self):
-        print("Advanced DataFrame options")
-        print("Make Sales Integers")
-        print("Make Sales Floats")
-        print("other option idk")
->>>>>>> d43c461 (Made more ui changes and got the ui working for sorting!)
->>>>>>> cc74e8e (Made more ui changes and got the ui working for sorting!)
+            
+  
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 df.options() # what is this here for
