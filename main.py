@@ -26,6 +26,11 @@ class data:
                     self.filterMain()
                 elif o == 2:
                     self.sortMain()
+                elif o == 3:
+                    self.advancedMain()
+                else:
+                    print("Invalid Input Let's Try Agian")
+                    self.options()
                 # elif o == 2:
                 #     self.sortMain() no need for two of these
                     break
@@ -96,6 +101,7 @@ class data:
         print("Make Sales Integers")
         print("Make Sales Floats")
         print("other option idk")
+<<<<<<< HEAD
     def filterSales(self): 
         print("DataFrame Sales Filter Options: ")
         print("  1. Global Sales")
@@ -125,5 +131,34 @@ class data:
         print("Make Sales Integers")
         print("Make Sales Floats")
         print("other option idk")
+=======
+        o = None
+        while True:
+            o = int(input("Enter the number of the option you want to select: "))
+            if o == 1:
+                pass
+            elif o == 2 :
+                pass
+            elif o == 3:
+                pass
+    # def filterSales(self): 
+    #     pass
+    # def sortMain():
+    #     print("DataFrame Sorting Options")
+    #     print("  1. Sales")
+    #     print("  2. Genre")
+    #     print("  3. Year")
+    #     print("  4. Platform")
+    #     print("  5. Save and return")
+    #     print()
+    #     o = None
+    #     while True:
+    #         try:
+    #             o = int(input("Enter the number of the option you want to select: "))
+    #         except:
+    #             pass
+# im pretty sure lines 66 through 81 should not be here? so ive comented them out for now
+
+>>>>>>> 04a5df7 (im commiting something)
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 df.options() # what is this here for
