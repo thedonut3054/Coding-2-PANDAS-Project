@@ -109,26 +109,27 @@ class data:
         print("  6. Save and return")
         print()
         o = None
-        while True:
+        x = True
+        while x:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
                     self.filterGlobalSales()
-                    break
+                    x = False
                 elif o == 2:
                     self.filterNASales()
-                    break
+                    x = False
                 elif o == 3:
                     self.filterEUSales()
-                    break
+                    x = False
                 elif o == 4:
                     self.filterJPSales()
-                    break
+                    x = False
                 elif o == 5:
-                    break
+                    pass
                 elif o == 6:
                     self.filterMain()
-                    break
+                    x = False
             except:
                 pass        
     def filterGlobalSales(self):
@@ -175,10 +176,10 @@ class data:
                 pass  
     def filterNASales(self):
         def NASFOptions():
-            if self.NA_Greater_Than == True:
-                return(f"GREATER THAN {self.NA_Sales_Amount}")
+            if self.NASFO_Greater_Than == True:
+                return(f"GREATER THAN {self.NASFO_Sales_Amount}")
             else:
-                return(f"LESS THAN {self.NA_Sales_Amount}")
+                return(f"LESS THAN {self.NASFO_Sales_Amount}")
         blankspace()
         print("DataFrame NA Sales Filter Options: ")
         print(f"  1. Greater Than == {str(self.NASFO_Greater_Than)}")
@@ -203,7 +204,7 @@ class data:
                 elif o == 3:
                     self.filterSales()
             except:
-                pass        
+                pass  
     def filterNASalesThreshold(self):
         blankspace()
         print(f"Current NA Sales Threshold: {self.NASFO_Sales_Amount}")
@@ -214,7 +215,7 @@ class data:
                 self.NASFO_Sales_Amount = o
                 self.filterNASales()
             except:
-                pass
+                pass  
     def filterEUSales(self):
         def EUSFOptions():
             if self.EUSFO_Greater_Than == True:
@@ -260,16 +261,16 @@ class data:
     def filterJPSales(self):
         def JPSFOptions():
             if self.JPSFO_Greater_Than == True:
-                return(f"GREATER THAN {self.JP_Sales_Amount}")
+                return(f"GREATER THAN {self.JPSFO_Sales_Amount}")
             else:
-                return(f"LESS THAN {self.JP_Sales_Amount}")
+                return(f"LESS THAN {self.JPSFO_Sales_Amount}")
         blankspace()
         print("DataFrame JP Sales Filter Options: ")
         print(f"  1. Greater Than == {str(self.JPSFO_Greater_Than)}")
         print(f"  2. Threshold == {str(self.JPSFO_Sales_Amount)}")
         print(f"  3. Save and Return")
         print()
-        print(f"  Only Show entries with {JPSFOptions()} NA sales")
+        print(f"  Only Show entries with {JPSFOptions()} JP sales")
         print()
         o = None
         while True:
@@ -287,7 +288,7 @@ class data:
                 elif o == 3:
                     self.filterSales()
             except:
-                pass        
+                pass  
     def filterJPSalesThreshold(self):
         blankspace()
         print(f"Current JP Sales Threshold: {self.JPSFO_Sales_Amount}")
@@ -298,7 +299,7 @@ class data:
                 self.JPSFO_Sales_Amount = o
                 self.filterJPSales()
             except:
-                pass
+                pass  
     def advancedMain(self):
         print("Advanced DataFrame options")
         print("Make Sales Integers")
