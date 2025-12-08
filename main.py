@@ -269,7 +269,7 @@ class data:
         print(f"  2. Threshold == {str(self.JPSFO_Sales_Amount)}")
         print(f"  3. Save and Return")
         print()
-        print(f"  Only Show entries with {JPSFOptions()} JP sales")
+        print(f"  Only Show entries with {JPSFOptions()} NA sales")
         print()
         o = None
         while True:
