@@ -65,6 +65,8 @@ class data:
                     pass
                 elif o == 3:
                     pass
+                elif o == 4:
+                    self.options()
             except:
                 pass
     def sortSales(self):
@@ -85,8 +87,19 @@ class data:
                     pass
                 elif o == 3:
                     pass
+                elif o == 4:
+                    pass
+                elif o == 5:
+                    pass
+                elif o == 6:
+                    pass
             except:
                 pass
+    def sortGlobalsales(self):
+        blankspace()
+        print("Sorting by global sales")
+        print(f"     1.Acending == {self.sortAcending}")
+        print()
     def advancedMain(self):
         blankspace()
         print("Advanced DataFrame options")
@@ -399,6 +412,6 @@ class data:
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 print(df.df.sort_values(by="Year").head())
 def blankspace():
-    for i in range(0, 50):
+    for i in range(50):
         print()
 df.options() # This calls the first method so the program starts
