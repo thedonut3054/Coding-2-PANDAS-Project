@@ -12,6 +12,8 @@ class data:
         self.JPSFO_Sales_Amount = 0
         self.OSFO_Greater_Than = True
         self.OSFO_Sales_Amount = 0
+        self.YFO_Threshold = 1980
+        self.YFO_After = True
         self.sortType = "None"
         self.sortAcending = True
     def getInt(self):
@@ -105,7 +107,8 @@ class data:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
                     self.filterSales()
-                    break
+                elif o == 2:
+                    self.filterYear()
             except:
                 pass    
     def filterSales(self): 
@@ -352,7 +355,49 @@ class data:
                 self.filterOtherSales()
             except:
                 pass  
+    def filterYear(self):
+        blankspace()
+        def YearFilterOptions():
+            if self.YFO_After == True:
+                return(f"AFTER {self.YFO_Threshold}")
+            elif self.YFO_After == False:
+                return(f"BEFORE {self.YFO_Threshold}")
+        print("Data Frame Year Filtering Options")
+        print(f"  1. After == {self.YFO_After}")
+        print(f"  2. Threshold == {self.YFO_Threshold}")
+        print()
+        print(f"  Only show entries released {YearFilterOptions()}")
+        print()
+        o = None
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:
+                    if self.YFO_After == True:
+                        self.YFO_After = False
+                        self.filterYear()
+                    elif self.YFO_After == False:
+                        self.YFO_After = True
+                        self.filterYear()
+                elif o == 2:
+                    self.filterYearThreshold()
+                elif o == 3:
+                    self.filterMain()
+            except:
+                pass  
+    def filterYearThreshold(self):
+        blankspace()
+        print(f"Current Year Threshold: {self.YFO_Threshold}")
+        print()
+        while True:
+            try:
+                o = int(input("Enter the new Year Threshold: "))
+                self.YFO_Threshold = o
+                self.filterYear()
+            except:
+                pass  
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
+print(df.df.sort_values(by="Year").head())
 def blankspace():
     for i in range(0, 50):
         print()
