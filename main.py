@@ -10,6 +10,10 @@ class data:
         self.EUSFO_Sales_Amount = 0
         self.JPSFO_Greater_Than = True
         self.JPSFO_Sales_Amount = 0
+        self.OSFO_Greater_Than = True
+        self.OSFO_Sales_Amount = 0
+        self.sortType = "None"
+        self.sortAcending = True
     def getInt(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
@@ -40,6 +44,53 @@ class data:
                     self.options()
             except:
                     pass
+    def sortMain(self):
+        blankspace()
+        print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
+        print("  1. Sales")
+        print("  2. Year")
+        print("  3. Title")
+        print("  4. Save and return")
+        print()
+        print(f"Sorting by {self.sortType} | Acending == {self.sortAcending}")
+        o = None
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:    
+                    self.sortSales()
+                elif o == 2:
+                    pass
+                elif o == 3:
+                    pass
+            except:
+                pass
+    def sortSales(self):
+        blankspace()
+        print("DataFrame Sales Sorting Options")
+        print("  1. Global Sales")
+        print("  2. NA Sales")
+        print("  3. EU Sales")
+        print("  4. JP Sales")
+        print("  5. Other Sales")
+        print("  6. Return")
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:    
+                    pass
+                elif o == 2:
+                    pass
+                elif o == 3:
+                    pass
+            except:
+                pass
+    def advancedMain(self):
+        blankspace()
+        print("Advanced DataFrame options")
+        print("  1. Make Sales Integers")
+        print("  2. Make Sales Floats")
+        print("  3. other option idk")
     def filterMain(self):
         blankspace()
         print("DataFrame Filter Options:")
@@ -56,48 +107,7 @@ class data:
                     self.filterSales()
                     break
             except:
-                pass
-    def sortMain(self):
-        blankspace()
-        print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
-        print("  1. Sales")
-        print("  2. Year")
-        print("  3. Title")
-        print("  4. Save and return")
-        print()
-        o = None
-        while True:
-            try:
-                o = int(input("Enter the number of the option you want to select: "))
-                if o == 1:    
-                    print("Sorted By Sales!") # Should sales take us to another menu for where sales are like NA or EU
-                    # self.df.sort_values["Global_Sales"]
-                    self.filterSales()
-                    break
-                elif o == 2:
-                    print("Sorted By Year!")
-                    self.sortMain()
-                    break
-                elif o == 3:
-                    print("Sorted By Platform!")
-                    self.sortMain()
-                    break
-                elif o == 4:
-                    print("Saved Renturning To Home!")
-                    self.options()
-                    break
-                else:
-                    print("Invalid Input Try Again")
-                    self.sortMain()
-                    break
-            except:
-                pass
-    def advancedMain(self):
-        blankspace()
-        print("Advanced DataFrame options")
-        print("  1. Make Sales Integers")
-        print("  2. Make Sales Floats")
-        print("  3. other option idk")
+                pass    
     def filterSales(self): 
         blankspace()
         print("DataFrame Sales Filter Options: ")
@@ -126,7 +136,7 @@ class data:
                     self.filterJPSales()
                     x = False
                 elif o == 5:
-                    pass
+                    self.filterOtherSales()
                 elif o == 6:
                     self.filterMain()
                     x = False
@@ -300,21 +310,48 @@ class data:
                 self.filterJPSales()
             except:
                 pass  
-    def advancedMain(self):
-        print("Advanced DataFrame options")
-        print("Make Sales Integers")
-        print("Make Sales Floats")
-        print("other option idk")
+    def filterOtherSales(self):
+        def OSFOptions():
+            if self.OSFO_Greater_Than == True:
+                return(f"GREATER THAN {self.OSFO_Sales_Amount}")
+            else:
+                return(f"LESS THAN {self.OSFO_Sales_Amount}")
+        blankspace()
+        print("DataFrame Other Sales Filter Options: ")
+        print(f"  1. Greater Than == {str(self.OSFO_Greater_Than)}")
+        print(f"  2. Threshold == {str(self.OSFO_Sales_Amount)}")
+        print(f"  3. Save and Return")
+        print()
+        print(f"  Only Show entries with {OSFOptions()} Other sales")
+        print()
         o = None
         while True:
-            o = int(input("Enter the number of the option you want to select: "))
-            if o == 1:
-                pass
-            elif o == 2 :
-                pass
-            elif o == 3:
-                pass
-  
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:
+                    if self.OSFO_Greater_Than == True:
+                        self.OSFO_Greater_Than = False
+                        self.filterOtherSales()
+                    elif self.OSFO_Greater_Than == False:
+                        self.OSFO_Greater_Than = True
+                        self.filterOtherSales()
+                elif o == 2:
+                    self.filterOtherSalesThreshold()
+                elif o == 3:
+                    self.filterSales()
+            except:
+                pass  
+    def filterOtherSalesThreshold(self):
+        blankspace()
+        print(f"Current Other Sales Threshold: {self.JPSFO_Sales_Amount}")
+        print()
+        while True:
+            try:
+                o = int(input("Enter the new Other Sales Threshold: "))
+                self.OSFO_Sales_Amount = o
+                self.filterOtherSales()
+            except:
+                pass  
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 def blankspace():
     for i in range(0, 50):
