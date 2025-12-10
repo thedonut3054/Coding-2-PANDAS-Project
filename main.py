@@ -14,6 +14,8 @@ class data:
         self.OSFO_Sales_Amount = 0
         self.YFO_Threshold = 1980
         self.YFO_After = True
+        self.GFO_Include = False
+        self.GFO_List = []
         self.sortType = "None"
         self.sortAcending = True
     def getInt(self):
@@ -122,6 +124,10 @@ class data:
                     self.filterSales()
                 elif o == 2:
                     self.filterYear()
+                elif o == 3:
+                    self.filterGenre()
+                elif o == 4:
+                    self.options()
             except:
                 pass    
     def filterSales(self): 
@@ -334,7 +340,7 @@ class data:
                 return(f"LESS THAN {self.OSFO_Sales_Amount}")
         blankspace()
         print("DataFrame Other Sales Filter Options: ")
-        print(f"  1. Greater Than == {str(self.OSFO_Greater_Than)}")
+        print(f"{getBoolCode(self.OSFO_Greater_Than)}  1. Greater Than == {str(self.OSFO_Greater_Than)} \x1b[0m")
         print(f"  2. Threshold == {str(self.OSFO_Sales_Amount)}")
         print(f"  3. Save and Return")
         print()
@@ -376,7 +382,7 @@ class data:
             elif self.YFO_After == False:
                 return(f"BEFORE {self.YFO_Threshold}")
         print("Data Frame Year Filtering Options")
-        print(f"  1. After == {self.YFO_After}")
+        print(f"{getBoolCode(self.YFO_After)}  1. After == {self.YFO_After} \x1b[0m")
         print(f"  2. Threshold == {self.YFO_Threshold}")
         print()
         print(f"  Only show entries released {YearFilterOptions()}")
@@ -409,9 +415,71 @@ class data:
                 self.filterYear()
             except:
                 pass  
+    def filterGenre(self):
+        blankspace()
+        def Genre_Filter_Include():
+            if self.GFO_Include == True:
+                return("INCLUDE")
+            if self.GFO_Include == False:
+                return("EXCLUDE")
+        def Genre_Filter_List():
+            if len(self.GFO_List) == 0:
+                print("  None")
+            else:
+                for item in self.GFO_List:
+                    print(f"  {item}")
+        print("DataFrame Main Platform Filtering Options")
+        print()
+        print("  1. Sports")
+        print("  2. Platform")
+        print("  3. Racing")
+        print("  4. Role-Playing")
+        print("  5. Puzzle")
+        print("  6. Shooter")
+        print("  7. Simulation")
+        print("  8. Action")
+        print("  9. Fighting")
+        print("  10. Adventure")
+        print("  11. Strategy")
+        print("  12. Misc")
+        print(f"{getBoolCode(self.GFO_Include)}  13. Include == {self.GFO_Include} \x1b[0m")
+        print("  14. Save and Return")
+        print()
+        print(f"  The DataFrame Will {Genre_Filter_Include()} The Following Genres:")
+        Genre_Filter_List()
+        print()
+        o = None
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o > 0 and o < 13:
+                    GList = ['Sports', 'Platform', 'Racing', 'Role-Playing', 'Puzzle', 'Shooter', 'Simulation', 'Action', 'Fighting', 'Adventure', 'Strategy', 'Misc']
+                    if GList[o-1] not in self.GFO_List:
+                        self.GFO_List.append(GList[o-1])
+                    else:
+                        self.GFO_List.remove(GList[o-1])
+                    self.filterGenre()
+                elif o == 13:
+                    if self.GFO_Include == True:
+                        self.GFO_Include = False
+                        self.filterGenre()
+                    elif self.GFO_Include == False:
+                        self.GFO_Include = True
+                        self.filterGenre()
+                elif o == 14:
+                    self.filterMain()
+            except:
+                print("Test")
+                pass          
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 print(df.df.sort_values(by="Year").head())
 def blankspace():
     for i in range(50):
         print()
+def getBoolCode(x):
+    if x == True:
+        return("\x1b[32m")
+    else:
+        return("\x1b[31m")
+print(df.df["Genre"].unique())
 df.options() # This calls the first method so the program starts
