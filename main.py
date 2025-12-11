@@ -66,8 +66,45 @@ class data:
         self.GFO_List = []
         self.sortType = "None"
         self.sortAcending = True
-        self.topEntries = None
-        self.options()
+    def getInt(self):
+        self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
+        self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
+    def getFloat(self):
+        self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(float)
+        self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: round(y/1000000, 2))
+    def options(self):
+        blankspace()
+        print("DataFrame View Options:")
+        print("  1. Filter")
+        print("  2. Sort")
+        print("  3. Advanced")
+        print("  4. Reset")
+        print("  5. View DataFrame")
+        print()
+        o = None
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:
+                    self.filterMain()
+                    break
+                elif o == 2:
+                    self.sortMain()
+                    break
+                elif o == 3:
+                    self.advancedMain()
+                    break
+                elif o == 4:
+                    self.resetDf()
+                    print("DataFrame Reset")
+                else:
+                    print("Invalid Input Let's Try Agian")
+                    self.options()
+                    break
+            except:
+                    pass
+    def resetDf(self):
+        self.df.reset_index
     def sortMain(self):
         blankspace()
         print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
@@ -106,8 +143,7 @@ class data:
                 pass
     def sortYear(self):
         blankspace()
-        self.sortType = "Year"
-        self.df.sort_values(by=self.sortType, ascending = self.sortAcending)
+        self.df.sort_values(by="Year", ascending = self.sortAcending)
         print("DataFrame Year Sorting Options")
         print(f" 1. Acending | {self.sortAcending}")
         print("  2. Save and Return")
@@ -131,7 +167,6 @@ class data:
                 self.sortYear()
     def sortTitle(self):
         blankspace()
-        self.sortType = "Name"
         self.df.sort_values("Name",ascending= self.sortAcending)
         print("DataFrame Title Sorting Options")
         print(f" 1. Acending | {self.sortAcending}")
@@ -197,7 +232,7 @@ class data:
                 pass
     def sortGlobalsales(self):
         blankspace()
-        self.df.sort_values(by="Global_Sales", ascending=self.sortAcending)
+        self.df.sort_values(by="Global_Sales", ascending = self.sortAcending)
         self.sortType = "Global Sales"
         print("Sorting by global sales")
         print(f"     1. Acending | {self.sortAcending}")
