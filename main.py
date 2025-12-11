@@ -63,14 +63,70 @@ class data:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:    
                     self.sortSales()
+                    break
                 elif o == 2:
-                    pass
+                    self.sortYear()
+                    break
                 elif o == 3:
-                    pass
+                    self.sortTitle()
+                    break
                 elif o == 4:
                     self.options()
+                    break
             except:
                 pass
+    def sortYear(self):
+        blankspace()
+        print("DataFrame Year Sorting Options")
+        print("  1. Numericly")
+        print(f" 2. Acending | {self.sortAcending}")
+        print("  3. Save and Return")
+        o = None
+        while True:
+            o == int(input("Enter the number of the option you want to select:" ))
+            if o == 1:
+                print("Sorting Years Numeically")
+                self.sortType = "Numerically by Year"
+                self.sortMain()
+                break
+            elif o == 2:
+                if self.sortAcending == True:
+                    self.sortAcending = False
+                    self.sortYear()
+                    break
+                elif self.sortAcending == False:
+                    self.sortAcending = True
+                    self.sortYear()
+                    break
+            elif o == 3:
+                self.sortMain()
+                break
+    def sortTitle(self):
+        blankspace()
+        print("DataFrame Title Sorting Options")
+        print("  1. Alphabetically")
+        print(f" 2. Acending | {self.sortAcending}")
+        print("  3. Save and Return")
+        o = None
+        while True:
+            o == int(input("Enter the number of the option you want to select:" ))
+            if o == 1:
+                print("Sorting Titles Alphabetically")
+                self.sortType = "Alphabetically by Title"
+                self.sortMain()
+                break
+            elif o == 2:
+                if self.sortAcending == True:
+                    self.sortAcending = False
+                    self.sortTitle()
+                    break
+                elif self.sortAcending == False:
+                    self.sortAcending = True
+                    self.sortTitle()
+                    break
+            elif o == 3:
+                self.sortMain()
+                break
     def sortSales(self):
         blankspace()
         print("DataFrame Sales Sorting Options")
@@ -79,29 +135,146 @@ class data:
         print("  3. EU Sales")
         print("  4. JP Sales")
         print("  5. Other Sales")
-        print("  6. Return")
+        print("  6. Reset Sales Sorting")
+        print("  7. Return")
         while True:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:    
-                    pass
+                    self.sortGlobalsales()
+                    break
                 elif o == 2:
-                    pass
+                    self.sortNAsales()
+                    break
                 elif o == 3:
-                    pass
+                    self.sortEUsales()
+                    break
                 elif o == 4:
-                    pass
+                    self.sortJPsales()
+                    break
                 elif o == 5:
-                    pass
+                    self.sortOthersales()
+                    break
                 elif o == 6:
-                    pass
+                    print("Reseting Sales Sorting Options")
+                    #more code needed
+                    self.sortSales()
+                    break
+                elif o == 7:
+                    self.sortMain()
+                    break
             except:
                 pass
     def sortGlobalsales(self):
         blankspace()
+        self.sortType = "Global Sales"
         print("Sorting by global sales")
-        print(f"     1.Acending == {self.sortAcending}")
-        print()
+        print(f"     1. Acending | {self.sortAcending}")
+        print("      2. Save and Return")
+        o = None
+        while True:
+            try:
+                o == int(input("Which option do you want?"))
+                if o == 1:
+                    if self.sortAcending == True:
+                       self.sortAcending = False
+                       self.sortGlobalsales
+                    elif self.sortAcending == False:
+                       self.sortAcending = True
+                       self.sortGlobalsales
+                elif o == 2:
+                    print("Saving choices")
+                    self.sortSales
+            except:
+                pass
+    def sortNAsales(self):
+        blankspace()
+        self.sortType = "NA Sales"
+        print("      Sorting by NA sales")
+        print(f"     1. Acending | {self.sortAcending}")
+        print("      2. Save and Return")
+        o = None
+        while True:
+            try:
+                o == int(input("Which option do you want?"))
+                if o == 1:
+                    if self.sortAcending == True:
+                       self.sortAcending = False
+                       self.sortNAsales
+                    elif self.sortAcending == False:
+                       self.sortAcending = True
+                       self.sortNAsales
+                elif o == 2:
+                    print("Saving choices")
+                    self.sortSales()
+            except:
+                pass
+    def sortJPsales(self):
+        blankspace()
+        self.sortType = "JP Sales"
+        print("      Sorting by JP sales")
+        print(f"     1. Acending | {self.sortAcending}")
+        print("      2. Save and Return")
+        o = None
+        while True:
+            try:
+                o == int(input("Which option do you want?"))
+                if o == 1:
+                    if self.sortAcending == True:
+                       self.sortAcending = False
+                       self.sortJPsales
+                    elif self.sortAcending == False:
+                       self.sortAcending = True
+                       self.sortJPsales
+                elif o == 2:
+                    print("Saving choices")
+                    self.sortSales()
+            except:
+                pass
+    def sortEUsales(self):
+        blankspace()
+        self.sortType = "EU Sales"
+        print("      Sorting by EU sales")
+        print(f"     1. Acending | {self.sortAcending}")
+        print("      2. Save and Return")
+        o = None
+        while True:
+            try:
+                o == int(input("Which option do you want?"))
+                if o == 1:
+                    if self.sortAcending == True:
+                       self.sortAcending = False
+                       self.sortEUsales
+                    elif self.sortAcending == False:
+                       self.sortAcending = True
+                       self.sortEUsales
+                elif o == 2:
+                    print("Saving choices")
+                    self.sortSales()
+            except:
+                pass
+    def sortOthersales(self):
+        blankspace()
+        self.sortType = "Other Sales"
+        print("Sorting by Other sales")
+        print(f"     1. Acending | {self.sortAcending}")
+        print("      2. Save and Return")
+        o = None
+        while True:
+            try:
+                o == int(input("Which option do you want?"))
+                if o == 1:
+                    if self.sortAcending == True:
+                       self.sortAcending = False
+                       self.sortOthersales
+                    elif self.sortAcending == False:
+                       self.sortAcending = True
+                       self.sortOthersales
+                elif o == 2:
+                    print("Saving choices")
+                    self.sortSales
+            except:
+                pass    
     def advancedMain(self):
         blankspace()
         print("Advanced DataFrame options")
