@@ -39,22 +39,32 @@ class data:
                 o = int(input("Enter the number of the option you want to select: "))
                 if o == 1:
                     self.filterMain()
+                    break
                 elif o == 2:
                     self.sortMain()
+                    break
                 elif o == 3:
                     self.advancedMain()
+                    break
+                elif o == 4:
+                    self.resetDf()
+                    print("DataFrame Reset")
                 else:
                     print("Invalid Input Let's Try Agian")
                     self.options()
+                    break
             except:
                     pass
+    def resetDf(self):
+        self.df.reset_index
     def sortMain(self):
         blankspace()
         print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
         print("  1. Sales")
         print("  2. Year")
         print("  3. Title")
-        print("  4. Save and return")
+        print("  4. Reset DataFrame")
+        print("  5. Save and Return")
         print()
         print(f"Sorting by {self.sortType} | Acending == {self.sortAcending}")
         o = None
@@ -71,25 +81,28 @@ class data:
                     self.sortTitle()
                     break
                 elif o == 4:
+                    self.df.reset_index
+                    self.sortMain()
+                    break
+                elif o == 5:
+                    print("saved")
                     self.options()
                     break
+                else:
+                    print("Invaild Input")
+                    self.sortMain()
             except:
                 pass
     def sortYear(self):
         blankspace()
+        self.df.sort_values(by="Year", ascending = self.sortAcending)
         print("DataFrame Year Sorting Options")
-        print("  1. Numericly")
-        print(f" 2. Acending | {self.sortAcending}")
-        print("  3. Save and Return")
+        print(f" 1. Acending | {self.sortAcending}")
+        print("  2. Save and Return")
         o = None
         while True:
-            o == int(input("Enter the number of the option you want to select:" ))
+            o = int(input("Enter the number of the option you want to select:" ))
             if o == 1:
-                print("Sorting Years Numeically")
-                self.sortType = "Numerically by Year"
-                self.sortMain()
-                break
-            elif o == 2:
                 if self.sortAcending == True:
                     self.sortAcending = False
                     self.sortYear()
@@ -98,24 +111,22 @@ class data:
                     self.sortAcending = True
                     self.sortYear()
                     break
-            elif o == 3:
+            elif o == 2:
                 self.sortMain()
                 break
+            else:
+                print("Invaild Input")
+                self.sortYear()
     def sortTitle(self):
         blankspace()
+        self.df.sort_values("Name",ascending= self.sortAcending)
         print("DataFrame Title Sorting Options")
-        print("  1. Alphabetically")
-        print(f" 2. Acending | {self.sortAcending}")
-        print("  3. Save and Return")
+        print(f" 1. Acending | {self.sortAcending}")
+        print("  2. Save and Return")
         o = None
         while True:
-            o == int(input("Enter the number of the option you want to select:" ))
+            o = int(input("Enter the number of the option you want to select:" ))
             if o == 1:
-                print("Sorting Titles Alphabetically")
-                self.sortType = "Alphabetically by Title"
-                self.sortMain()
-                break
-            elif o == 2:
                 if self.sortAcending == True:
                     self.sortAcending = False
                     self.sortTitle()
@@ -124,9 +135,12 @@ class data:
                     self.sortAcending = True
                     self.sortTitle()
                     break
-            elif o == 3:
+            elif o == 2:
                 self.sortMain()
                 break
+            else:
+                print("Invaild Input")
+                self.sortTitle()
     def sortSales(self):
         blankspace()
         print("DataFrame Sales Sorting Options")
@@ -157,60 +171,78 @@ class data:
                     break
                 elif o == 6:
                     print("Reseting Sales Sorting Options")
-                    #more code needed
+                    self.df.reset_index()
                     self.sortSales()
                     break
                 elif o == 7:
                     self.sortMain()
                     break
+                else:
+                    print("Invaild Input")
+                    self.sortMain()
             except:
                 pass
     def sortGlobalsales(self):
         blankspace()
+        self.df.sort_values(by="Global_Sales", ascending = self.sortAcending)
         self.sortType = "Global Sales"
         print("Sorting by global sales")
         print(f"     1. Acending | {self.sortAcending}")
-        print("      2. Save and Return")
+        print("     2. Save and Return")
         o = None
         while True:
             try:
-                o == int(input("Which option do you want?"))
+                o = int(input("Which option do you want: "))
                 if o == 1:
                     if self.sortAcending == True:
                        self.sortAcending = False
-                       self.sortGlobalsales
+                       self.sortGlobalsales()
+                       break
                     elif self.sortAcending == False:
                        self.sortAcending = True
-                       self.sortGlobalsales
-                elif o == 2:
-                    print("Saving choices")
-                    self.sortSales
-            except:
-                pass
-    def sortNAsales(self):
-        blankspace()
-        self.sortType = "NA Sales"
-        print("      Sorting by NA sales")
-        print(f"     1. Acending | {self.sortAcending}")
-        print("      2. Save and Return")
-        o = None
-        while True:
-            try:
-                o == int(input("Which option do you want?"))
-                if o == 1:
-                    if self.sortAcending == True:
-                       self.sortAcending = False
-                       self.sortNAsales
-                    elif self.sortAcending == False:
-                       self.sortAcending = True
-                       self.sortNAsales
+                       self.sortGlobalsales()
+                       break
                 elif o == 2:
                     print("Saving choices")
                     self.sortSales()
+                    break
+                else:
+                    print("Invaild Input")
+                    self.sortGlobalsales()
+            except:
+                pass
+    def sortNAsales(self):
+        self.df.sort_values(by="NA_Sales", ascending = self.sortAcending)
+        blankspace()
+        self.sortType = "NA Sales"
+        print("Sorting by NA sales")
+        print(f"     1. Acending | {self.sortAcending}")
+        print("     2. Save and Return")
+        o = None
+        while True:
+            try:
+                o = int(input("Which option do you want: "))
+                if o == 1:
+                    if self.sortAcending == True:
+                       self.sortAcending = False
+                       self.sortNAsales()
+                       break
+                    elif self.sortAcending == False:
+                       self.sortAcending = True
+                       self.sortNAsales()
+                       break
+                elif o == 2:
+                    print("Saving choices")
+                    self.sortSales()
+                    break
+                else:
+                    print("Invaild Input")
+                    self.sortNAsales()
             except:
                 pass
     def sortJPsales(self):
         blankspace()
+        self.df.sort_values(by="JP_Sales", ascending = self.sortAcending)
         self.sortType = "JP Sales"
         print("      Sorting by JP sales")
         print(f"     1. Acending | {self.sortAcending}")
@@ -218,61 +250,81 @@ class data:
         o = None
         while True:
             try:
-                o == int(input("Which option do you want?"))
+                o = int(input("Which option do you want: "))
                 if o == 1:
                     if self.sortAcending == True:
                        self.sortAcending = False
-                       self.sortJPsales
+                       self.sortJPsales()
+                       break
                     elif self.sortAcending == False:
                        self.sortAcending = True
-                       self.sortJPsales
+                       self.sortJPsales()
+                       break
                 elif o == 2:
                     print("Saving choices")
                     self.sortSales()
+                    break
+                else:
+                    print("Invaild Input")
+                    self.sortOthersales()
             except:
                 pass
     def sortEUsales(self):
         blankspace()
+        self.df.sort_values(by="EU_Sales", ascending = self.sortAcending)
         self.sortType = "EU Sales"
         print("      Sorting by EU sales")
-        print(f"     1. Acending | {self.sortAcending}")
-        print("      2. Save and Return")
+        print(f"    1. Acending | {self.sortAcending}")
+        print("     2. Save and Return")
         o = None
         while True:
             try:
-                o == int(input("Which option do you want?"))
+                o = int(input("Which option do you want: "))
                 if o == 1:
                     if self.sortAcending == True:
                        self.sortAcending = False
-                       self.sortEUsales
+                       self.sortEUsales()
+                       break
                     elif self.sortAcending == False:
                        self.sortAcending = True
-                       self.sortEUsales
+                       self.sortEUsales()
+                       break
                 elif o == 2:
                     print("Saving choices")
                     self.sortSales()
+                    break
+                else:
+                    print("Invaild Input")
+                    self.sortEUsales()
             except:
                 pass
     def sortOthersales(self):
         blankspace()
+        self.df.sort_values(by="Other_Sales", ascending = self.sortAcending)
         self.sortType = "Other Sales"
         print("Sorting by Other sales")
-        print(f"     1. Acending | {self.sortAcending}")
-        print("      2. Save and Return")
+        print(f"    1. Acending | {self.sortAcending}")
+        print("     2. Save and Return")
         o = None
         while True:
             try:
-                o == int(input("Which option do you want?"))
+                o = int(input("Which option do you want: "))
                 if o == 1:
                     if self.sortAcending == True:
                        self.sortAcending = False
-                       self.sortOthersales
+                       self.sortOthersales()
+                       break
                     elif self.sortAcending == False:
                        self.sortAcending = True
-                       self.sortOthersales
+                       self.sortOthersales()
+                       break
                 elif o == 2:
                     print("Saving choices")
-                    self.sortSales
+                    self.sortSales()
+                    break
+                else:
+                    print("Invaild Input")
+                    self.sortOthersales()
             except:
                 pass    
     def advancedMain(self):
