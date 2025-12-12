@@ -18,6 +18,7 @@ class data:
         self.GFO_List = []
         self.sortType = "None"
         self.sortAcending = True
+        self.topEntries = None
     def getInt(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
@@ -49,6 +50,14 @@ class data:
                 elif o == 4:
                     self.resetDf()
                     print("DataFrame Reset")
+                    self.options()
+                    break
+                elif o == 5:
+                    blankspace()
+                    if self.topEntries == None:
+                        print(self.df)
+                    else:
+                        print(self.df.head(self.topEntries))
                 else:
                     print("Invalid Input Let's Try Agian")
                     self.options()
@@ -332,7 +341,41 @@ class data:
         print("Advanced DataFrame options")
         print("  1. Make Sales Integers")
         print("  2. Make Sales Floats")
-        print("  3. other option idk")
+        print("  3. Show X Amount of Entries")
+        print("  4. Save and Return")
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o == 1:
+                    self.getInt()
+                    print("Sales Converted to Integers")
+                    self.advancedMain()
+                    break
+                elif o == 2:
+                    self.getFloat()
+                    print("Sales Converted to Floats")
+                    self.advancedMain()
+                    break
+                elif o == 3:
+                    self.showXEntries()
+                    break
+                elif o == 4:
+                    self.options()
+            except:
+                pass
+    def showXEntries(self):
+        blankspace()
+        print("Show X Amount of Entries")
+        print()
+        while True:
+            try:
+                o = int(input("Enter the amount of entries you want to view: "))
+                blankspace()
+                self.topEntries = o
+                self.advancedMain()
+                break
+            except:
+                pass
     def filterMain(self):
         blankspace()
         print("DataFrame Filter Options:")
