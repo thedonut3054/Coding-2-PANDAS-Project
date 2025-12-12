@@ -1,8 +1,23 @@
 import pandas as pd
 class data:
     def __init__(self, csv):
-        self.df = (pd.read_csv(csv))
-        self.resetDf()
+        self.df = (pd.read_csv(csv))        
+        self.GSFO_Greater_Than = True
+        self.GSFO_Sales_Amount = 0
+        self.NASFO_Greater_Than = True
+        self.NASFO_Sales_Amount = 0
+        self.EUSFO_Greater_Than = True
+        self.EUSFO_Sales_Amount = 0
+        self.JPSFO_Greater_Than = True
+        self.JPSFO_Sales_Amount = 0
+        self.OSFO_Greater_Than = True
+        self.OSFO_Sales_Amount = 0
+        self.YFO_Threshold = 1980
+        self.YFO_After = True
+        self.GFO_Include = False
+        self.GFO_List = []
+        self.sortType = "None"
+        self.sortAcending = True
     def getInt(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
@@ -31,10 +46,6 @@ class data:
                     self.advancedMain()
                     break
                 elif o == 4:
-                    print("DataFrame Reset")
-                    self.resetDf()
-                    break
-                elif o == 5:
                     blankspace()
                     if self.topEntries == None:
                         sorted_df = self.df.sort_values(by=self.sortType,ascending=self.sortAcending)
@@ -72,37 +83,6 @@ class data:
     def getFloat(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(float)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: round(y/1000000, 2))
-    def options(self):
-        blankspace()
-        print("DataFrame View Options:")
-        print("  1. Filter")
-        print("  2. Sort")
-        print("  3. Advanced")
-        print("  4. Reset")
-        print("  5. View DataFrame")
-        print()
-        o = None
-        while True:
-            try:
-                o = int(input("Enter the number of the option you want to select: "))
-                if o == 1:
-                    self.filterMain()
-                    break
-                elif o == 2:
-                    self.sortMain()
-                    break
-                elif o == 3:
-                    self.advancedMain()
-                    break
-                elif o == 4:
-                    self.resetDf()
-                    print("DataFrame Reset")
-                else:
-                    print("Invalid Input Let's Try Agian")
-                    self.options()
-                    break
-            except:
-                    pass
     def resetDf(self):
         self.df.reset_index
     def sortMain(self):
@@ -111,8 +91,7 @@ class data:
         print("  1. Sales")
         print("  2. Year")
         print("  3. Title")
-        print("  4. Reset DataFrame")
-        print("  5. Save and Return")
+        print("  4. Save and Return")
         print()
         print(f"Sorting by {self.sortType} | Acending == {self.sortAcending}")
         o = None
@@ -129,15 +108,9 @@ class data:
                     self.sortTitle()
                     break
                 elif o == 4:
-                    self.df.reset_index
-                    self.sortMain()
-                    break
-                elif o == 5:
-                    print("saved")
                     self.options()
                     break
                 else:
-                    print("Invaild Input")
                     self.sortMain()
             except:
                 pass
@@ -487,13 +460,13 @@ class data:
     def filterGlobalSales(self):
         def GSFOptions():
             if self.GSFO_Greater_Than == True:
-                return(f"GREATER THAN {self.GSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.GSFO_Greater_Than)}GREATER THAN {blue}{self.GSFO_Sales_Amount}{white}")
             else:
-                return(f"LESS THAN {self.GSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.GSFO_Greater_Than)}LESS THAN {blue}{self.GSFO_Sales_Amount}{white}")
         blankspace()
         print("DataFrame Global Sales Filter Options: ")
-        print(f"  1. Greater Than == {str(self.GSFO_Greater_Than)}")
-        print(f"  2. Threshold == {str(self.GSFO_Sales_Amount)}")
+        print(f"{getBoolCode(self.GSFO_Greater_Than)}  1. Greater Than == {str(self.GSFO_Greater_Than)}{white}")
+        print(f"  2. Threshold == {blue}{str(self.GSFO_Sales_Amount)}{white}")
         print(f"  3. Save and Return")
         print()
         print(f"  Only Show entries with {GSFOptions()} Global sales")
@@ -529,13 +502,13 @@ class data:
     def filterNASales(self):
         def NASFOptions():
             if self.NASFO_Greater_Than == True:
-                return(f"GREATER THAN {self.NASFO_Sales_Amount}")
+                return(f"{getBoolCode(self.NASFO_Greater_Than)}GREATER THAN {blue}{self.NASFO_Sales_Amount}{white}")
             else:
-                return(f"LESS THAN {self.NASFO_Sales_Amount}")
+                return(f"{getBoolCode(self.NASFO_Greater_Than)}LESS THAN {blue}{self.NASFO_Sales_Amount}{white}")
         blankspace()
         print("DataFrame NA Sales Filter Options: ")
-        print(f"  1. Greater Than == {str(self.NASFO_Greater_Than)}")
-        print(f"  2. Threshold == {str(self.NASFO_Sales_Amount)}")
+        print(f"{getBoolCode(self.NASFO_Greater_Than)}  1. Greater Than == {str(self.NASFO_Greater_Than)}{white}")
+        print(f"  2. Threshold == {blue}{str(self.NASFO_Sales_Amount)}{white}")
         print(f"  3. Save and Return")
         print()
         print(f"  Only Show entries with {NASFOptions()} NA sales")
@@ -571,13 +544,13 @@ class data:
     def filterEUSales(self):
         def EUSFOptions():
             if self.EUSFO_Greater_Than == True:
-                return(f"GREATER THAN {self.EUSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.EUSFO_Greater_Than)}GREATER THAN {blue}{self.EUSFO_Sales_Amount}{white}")
             else:
-                return(f"LESS THAN {self.EUSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.EUSFO_Greater_Than)}LESS THAN {blue}{self.EUSFO_Sales_Amount}{white}")
         blankspace()
         print("DataFrame EU Sales Filter Options: ")
-        print(f"  1. Greater Than == {str(self.EUSFO_Greater_Than)}")
-        print(f"  2. Threshold == {str(self.EUSFO_Sales_Amount)}")
+        print(f"{getBoolCode(self.EUSFO_Greater_Than)}  1. Greater Than == {str(self.EUSFO_Greater_Than)}{white}")
+        print(f"  2. Threshold == {blue}{str(self.EUSFO_Sales_Amount)}{white}")
         print(f"  3. Save and Return")
         print()
         print(f"  Only Show entries with {EUSFOptions()} EU sales")
@@ -613,13 +586,13 @@ class data:
     def filterJPSales(self):
         def JPSFOptions():
             if self.JPSFO_Greater_Than == True:
-                return(f"GREATER THAN {self.JPSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.JPSFO_Greater_Than)}GREATER THAN {blue}{self.JPSFO_Sales_Amount}{white}")
             else:
-                return(f"LESS THAN {self.JPSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.JPSFO_Greater_Than)}LESS THAN {blue}{self.JPSFO_Sales_Amount}{white}")
         blankspace()
         print("DataFrame JP Sales Filter Options: ")
-        print(f"  1. Greater Than == {str(self.JPSFO_Greater_Than)}")
-        print(f"  2. Threshold == {str(self.JPSFO_Sales_Amount)}")
+        print(f"{getBoolCode(self.JPSFO_Greater_Than)}  1. Greater Than == {str(self.JPSFO_Greater_Than)}\x1b[0m")
+        print(f"  2. Threshold == {blue}{str(self.JPSFO_Sales_Amount)}{white}")
         print(f"  3. Save and Return")
         print()
         print(f"  Only Show entries with {JPSFOptions()} JP sales")
@@ -655,13 +628,13 @@ class data:
     def filterOtherSales(self):
         def OSFOptions():
             if self.OSFO_Greater_Than == True:
-                return(f"GREATER THAN {self.OSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.OSFO_Greater_Than)}GREATER THAN {blue}{self.OSFO_Sales_Amount}{white}")
             else:
-                return(f"LESS THAN {self.OSFO_Sales_Amount}")
+                return(f"{getBoolCode(self.OSFO_Greater_Than)}LESS THAN {blue}{self.OSFO_Sales_Amount}{white}")
         blankspace()
         print("DataFrame Other Sales Filter Options: ")
         print(f"{getBoolCode(self.OSFO_Greater_Than)}  1. Greater Than == {str(self.OSFO_Greater_Than)} \x1b[0m")
-        print(f"  2. Threshold == {str(self.OSFO_Sales_Amount)}")
+        print(f"  2. Threshold == {blue}{str(self.OSFO_Sales_Amount)}{white}")
         print(f"  3. Save and Return")
         print()
         print(f"  Only Show entries with {OSFOptions()} Other sales")
@@ -698,13 +671,14 @@ class data:
         blankspace()
         def YearFilterOptions():
             if self.YFO_After == True:
-                return(f"AFTER {self.YFO_Threshold}")
+                return(f"{getBoolCode(self.YFO_After)}AFTER {blue}{self.YFO_Threshold}{white}")
             elif self.YFO_After == False:
-                return(f"BEFORE {self.YFO_Threshold}")
+                return(f"{getBoolCode(self.YFO_After)}BEFORE {blue}{self.YFO_Threshold}{white}")
         print("Data Frame Year Filtering Options")
         print(f"{getBoolCode(self.YFO_After)}  1. After == {self.YFO_After} \x1b[0m")
-        print(f"  2. Threshold == {self.YFO_Threshold}")
+        print(f"  2. Threshold == {blue}{self.YFO_Threshold}{white}")
         print("  3. Save and Return")
+        print()
         print(f"  Only show entries released {YearFilterOptions()}")
         print()
         o = None
@@ -726,16 +700,16 @@ class data:
                 pass  
     def filterYearThreshold(self):
         blankspace()
-        print(f"Current Year Threshold: \x1b[0;38;2;0;119;255;49m{self.YFO_Threshold}\x1b[0m")
+        print(f"Current Year Threshold: {blue}{self.YFO_Threshold}{white}")
         print()
         while True:
             try:
-                o = int(input("\x1b[0;38;2;0;119;255;49mEnter the new Year Threshold: \x1b[0m"))
+                o = int(input("Enter the new Year Threshold: "))
                 if o >= 1980:    
                     self.YFO_Threshold = o
                     self.filterYear()
             except:
-                pass  
+                pass
     def filterGenre(self):
         blankspace()
         def Genre_Filter_Include():
@@ -771,7 +745,7 @@ class data:
         print(f"{getBoolCode(self.GFO_Include)}  13. Include == {self.GFO_Include} \x1b[0m")
         print("  14. Save and Return")
         print()
-        print(f"  The DataFrame Will {getBoolCode(self.GFO_Include)}{Genre_Filter_Include()} \x1b[0mThe Following Genres:")
+        print(f"  The DataFrame Will {getBoolCode(self.GFO_Include)}{Genre_Filter_Include()}{white}The Following Genres:")
         Genre_Filter_List()
         print()
         o = None
@@ -797,6 +771,8 @@ class data:
             except:
                 pass          
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
+blue = "\x1b[0;38;2;0;119;255;49m"
+white = "\x1b[0m"
 # print(df.df.sort_values(by="Year").head())
 def blankspace():
     for i in range(50):
@@ -805,7 +781,7 @@ def getBoolCode(x):
     if x == True:
         return("\x1b[0;38;2;0;255;0;49m")
     else:
-        return("\x1b[31m")
+        return("\x1b[0;38;2;255;0;0;49m")
 # print(df.df["Genre"].unique())
 # sorted_df = df.df.sort_values(by="Global_Sales", ascending=True)
 # print(sorted_df.head(10))
