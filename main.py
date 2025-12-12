@@ -2,7 +2,25 @@ import pandas as pd
 class data:
     def __init__(self, csv):
         self.df = (pd.read_csv(csv))
-        self.resetDf()
+        self.setDefault()
+    def setDefault(self):
+        self.GSFO_Greater_Than = True
+        self.GSFO_Sales_Amount = 0
+        self.NASFO_Greater_Than = True
+        self.NASFO_Sales_Amount = 0
+        self.EUSFO_Greater_Than = True
+        self.EUSFO_Sales_Amount = 0
+        self.JPSFO_Greater_Than = True
+        self.JPSFO_Sales_Amount = 0
+        self.OSFO_Greater_Than = True
+        self.OSFO_Sales_Amount = 0
+        self.YFO_Threshold = 1980
+        self.YFO_After = True
+        self.GFO_Include = False
+        self.GFO_List = []
+        self.sortType = "None"
+        self.sortAcending = True
+        self.salesInMillions = True
     def getInt(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
@@ -15,8 +33,7 @@ class data:
         print("  1. Filter")
         print("  2. Sort")
         print("  3. Advanced")
-        print("  4. Reset")
-        print("  5. View DataFrame")
+        print("  4. View DataFrame")
         print()
         o = None
         while True:
@@ -399,7 +416,7 @@ class data:
         print("DataFrame Filter Options:")
         print("  1. Sales")
         print("  2. Year")
-        print("  3. Platform")
+        print("  3. Genre")
         print("  4. Save and return")
         print()
         o = None
@@ -692,13 +709,14 @@ class data:
                 pass  
     def filterYearThreshold(self):
         blankspace()
-        print(f"Current Year Threshold: {self.YFO_Threshold}")
+        print(f"Current Year Threshold: \x1b[0;38;2;0;119;255;49m{self.YFO_Threshold}\x1b[0m")
         print()
         while True:
             try:
-                o = int(input("Enter the new Year Threshold: "))
-                self.YFO_Threshold = o
-                self.filterYear()
+                o = int(input("\x1b[0;38;2;0;119;255;49mEnter the new Year Threshold: \x1b[0m"))
+                if o >= 1980:    
+                    self.YFO_Threshold = o
+                    self.filterYear()
             except:
                 pass  
     def filterGenre(self):
@@ -714,24 +732,29 @@ class data:
             else:
                 for item in self.GFO_List:
                     print(f"  {item}")
-        print("DataFrame Main Platform Filtering Options")
+        def getItemColor(x):
+            if x in self.GFO_List:
+                return("\x1b[0;38;2;0;119;255;49m")
+            else:
+                return("\x1b[0m")
+        print("DataFrame Main Genre Filtering Options")
         print()
-        print("  1. Sports")
-        print("  2. Platform")
-        print("  3. Racing")
-        print("  4. Role-Playing")
-        print("  5. Puzzle")
-        print("  6. Shooter")
-        print("  7. Simulation")
-        print("  8. Action")
-        print("  9. Fighting")
-        print("  10. Adventure")
-        print("  11. Strategy")
-        print("  12. Misc")
+        print(f"{getItemColor("Sports")}  1. Sports\x1b[0m")
+        print(f"{getItemColor("Platform")}  2. Platforming\x1b[0m")
+        print(f"{getItemColor("Racing")}  3. Racing\x1b[0m")
+        print(f"{getItemColor("Role-Playing")}  4. Role-Playing\x1b[0m")
+        print(f"{getItemColor("Puzzle")}  5. Puzzle\x1b[0m")
+        print(f"{getItemColor("Shooter")}  6. Shooter\x1b[0m")
+        print(f"{getItemColor("Simulation")}  7. Simulation\x1b[0m")
+        print(f"{getItemColor("Action")}  8. Action\x1b[0m")
+        print(f"{getItemColor("Fighting")}  9. Fighting\x1b[0m")
+        print(f"{getItemColor("Adventure")}  10. Adventure\x1b[0m")
+        print(f"{getItemColor("Strategy")}  11. Strategy\x1b[0m")
+        print(f"{getItemColor("Misc")}  12. Misc\x1b[0m")
         print(f"{getBoolCode(self.GFO_Include)}  13. Include == {self.GFO_Include} \x1b[0m")
         print("  14. Save and Return")
         print()
-        print(f"  The DataFrame Will {Genre_Filter_Include()} The Following Genres:")
+        print(f"  The DataFrame Will {getBoolCode(self.GFO_Include)}{Genre_Filter_Include()} \x1b[0mThe Following Genres:")
         Genre_Filter_List()
         print()
         o = None
@@ -755,7 +778,6 @@ class data:
                 elif o == 14:
                     self.filterMain()
             except:
-                print("Test")
                 pass          
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 # print(df.df.sort_values(by="Year").head())
@@ -764,7 +786,7 @@ def blankspace():
         print()
 def getBoolCode(x):
     if x == True:
-        return("\x1b[32m")
+        return("\x1b[0;38;2;0;255;0;49m")
     else:
         return("\x1b[31m")
 # print(df.df["Genre"].unique())
