@@ -48,9 +48,8 @@ class data:
                     self.advancedMain()
                     break
                 elif o == 4:
-                    self.resetDf()
                     print("DataFrame Reset")
-                    self.options()
+                    self.resetDf()
                     break
                 elif o == 5:
                     blankspace()
@@ -66,6 +65,24 @@ class data:
                     pass
     def resetDf(self):
         self.df.reset_index
+        self.GSFO_Greater_Than = True
+        self.GSFO_Sales_Amount = 0
+        self.NASFO_Greater_Than = True
+        self.NASFO_Sales_Amount = 0
+        self.EUSFO_Greater_Than = True
+        self.EUSFO_Sales_Amount = 0
+        self.JPSFO_Greater_Than = True
+        self.JPSFO_Sales_Amount = 0
+        self.OSFO_Greater_Than = True
+        self.OSFO_Sales_Amount = 0
+        self.YFO_Threshold = 1980
+        self.YFO_After = True
+        self.GFO_Include = False
+        self.GFO_List = []
+        self.sortType = "None"
+        self.sortAcending = True
+        self.topEntries = None
+        self.options()
     def sortMain(self):
         blankspace()
         print("DataFrame Sorting Options") # How are we going to sort by multiple things wont the sorts override each other?
