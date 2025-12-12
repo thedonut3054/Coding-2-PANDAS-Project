@@ -2,25 +2,7 @@ import pandas as pd
 class data:
     def __init__(self, csv):
         self.df = (pd.read_csv(csv))
-        self.setDefault()
-    def setDefault(self):
-        self.GSFO_Greater_Than = True
-        self.GSFO_Sales_Amount = 0
-        self.NASFO_Greater_Than = True
-        self.NASFO_Sales_Amount = 0
-        self.EUSFO_Greater_Than = True
-        self.EUSFO_Sales_Amount = 0
-        self.JPSFO_Greater_Than = True
-        self.JPSFO_Sales_Amount = 0
-        self.OSFO_Greater_Than = True
-        self.OSFO_Sales_Amount = 0
-        self.YFO_Threshold = 1980
-        self.YFO_After = True
-        self.GFO_Include = False
-        self.GFO_List = []
-        self.sortType = "None"
-        self.sortAcending = True
-        self.salesInMillions = True
+        self.resetDf()
     def getInt(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
