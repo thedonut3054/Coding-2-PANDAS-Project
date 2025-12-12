@@ -382,15 +382,28 @@ class data:
                 pass
     def showXEntries(self):
         blankspace()
-        print("Show X Amount of Entries")
+        print("Show X Amount of DataFrame Entries")
+        print("  1. Veiw All Entries")
+        print("  2. Set Amount of Entries to View")
         print()
+        o = None
+        x = None
         while True:
             try:
-                o = int(input("Enter the amount of entries you want to view: "))
-                blankspace()
-                self.topEntries = o
-                self.advancedMain()
-                break
+                x = int(input("Enter the number of the option you want to select: "))
+                if x == 1:
+                    self.topEntries = None
+                    self.advancedMain()
+                    break
+                elif x == 2:
+                    o = int(input("Enter the amount of entries you want to view: "))
+                    self.topEntries = o
+                    self.advancedMain()
+                    break
+                else:
+                    print("Invalid Input Let's Try Agian")
+                    self.showXEntries()
+                    break
             except:
                 pass
     def filterMain(self):
