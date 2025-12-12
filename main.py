@@ -54,9 +54,11 @@ class data:
                 elif o == 5:
                     blankspace()
                     if self.topEntries == None:
-                        print(self.df)
+                        sorted_df = self.df.sort_values(by=self.sortType,ascending=self.sortAcending)
+                        print(sorted_df)
                     else:
-                        print(self.df.head(self.topEntries))
+                        sorted_df = self.df.sort_values(by=self.sortType,ascending=self.sortAcending).head(self.topEntries)
+                        print(sorted_df)
                 else:
                     print("Invalid Input Let's Try Agian")
                     self.options()
@@ -64,7 +66,7 @@ class data:
             except:
                     pass
     def resetDf(self):
-        self.df.reset_index
+        self.df.reset_index()
         self.GSFO_Greater_Than = True
         self.GSFO_Sales_Amount = 0
         self.NASFO_Greater_Than = True
@@ -121,7 +123,8 @@ class data:
                 pass
     def sortYear(self):
         blankspace()
-        self.df.sort_values(by="Year", ascending = self.sortAcending)
+        self.sortType = "Year"
+        self.df.sort_values(by=self.sortType, ascending = self.sortAcending)
         print("DataFrame Year Sorting Options")
         print(f" 1. Acending | {self.sortAcending}")
         print("  2. Save and Return")
@@ -145,6 +148,7 @@ class data:
                 self.sortYear()
     def sortTitle(self):
         blankspace()
+        self.sortType = "Name"
         self.df.sort_values("Name",ascending= self.sortAcending)
         print("DataFrame Title Sorting Options")
         print(f" 1. Acending | {self.sortAcending}")
@@ -210,7 +214,7 @@ class data:
                 pass
     def sortGlobalsales(self):
         blankspace()
-        self.df.sort_values(by="Global_Sales", ascending = self.sortAcending)
+        self.df.sort_values(by="Global_Sales", ascending=self.sortAcending)
         self.sortType = "Global Sales"
         print("Sorting by global sales")
         print(f"     1. Acending | {self.sortAcending}")
@@ -682,7 +686,7 @@ class data:
         print("Data Frame Year Filtering Options")
         print(f"{getBoolCode(self.YFO_After)}  1. After == {self.YFO_After} \x1b[0m")
         print(f"  2. Threshold == {self.YFO_Threshold}")
-        print()
+        print("  3. Save and Return")
         print(f"  Only show entries released {YearFilterOptions()}")
         print()
         o = None
@@ -770,7 +774,7 @@ class data:
                 print("Test")
                 pass          
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
-print(df.df.sort_values(by="Year").head())
+# print(df.df.sort_values(by="Year").head())
 def blankspace():
     for i in range(50):
         print()
@@ -779,5 +783,7 @@ def getBoolCode(x):
         return("\x1b[32m")
     else:
         return("\x1b[31m")
-print(df.df["Genre"].unique())
+# print(df.df["Genre"].unique())
+# sorted_df = df.df.sort_values(by="Global_Sales", ascending=True)
+# print(sorted_df.head(10))
 df.options() # This calls the first method so the program starts
