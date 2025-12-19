@@ -2,7 +2,6 @@ import pandas as pd
 class data:
     def __init__(self, csv):
         self.df = (pd.read_csv(csv))        
-        self.df = (pd.read_csv(csv))        
         self.GSFO_Greater_Than = True
         self.GSFO_Sales_Amount = 0
         self.NASFO_Greater_Than = True
@@ -17,10 +16,13 @@ class data:
         self.YFO_After = True
         self.GFO_Include = False
         self.GFO_List = []
-        self.sortType = "Name"
-        self.sortAcending = False
+        self.sortType = "Rank"
+        self.sortBy = "Rank"
+        self.sortAcending = True
         self.salesAsInt = False
-        self.entriesPerPage = 50
+        self.entriesPerPage = 20
+        self.visibleColumns = ["Rank", "Name", "Genre", "Year", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]
+        self.page = 1
     def getInt(self):
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].apply(lambda y: y*1000000)
         self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]] = self.df[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]].astype(int)
@@ -46,13 +48,12 @@ class data:
                 elif o == 3:
                     self.advancedMain()
                 elif o == 4:
-                    self.compileDF()
+                    self.output()
                 else:
                     self.options()
             except:
                     pass
     def resetDf(self):
-        self.filteredDF = self.df
         self.df.reset_index()
         self.GSFO_Greater_Than = True
         self.GSFO_Sales_Amount = 0
@@ -68,10 +69,12 @@ class data:
         self.YFO_After = True
         self.GFO_Include = False
         self.GFO_List = []
-        self.sortType = "Name"
-        self.sortBy = "Name"
-        self.sortAcending = False
+        self.sortType = "Rank"
+        self.sortBy = "Rank"
+        self.sortAcending = True
         self.salesAsInt = False
+        self.entriesPerPage = 20
+        self.visibleColumns = ["Rank", "Name", "Genre", "Year", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"]
         self.getFloat()
     def sortMain(self):
         def getSalesText():
@@ -106,13 +109,13 @@ class data:
                     if self.sortType != "Year":
                         self.sortType = "Year"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 3:
                     if self.sortType != "Name":
                         self.sortType = "Name"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 4:
                     if self.sortAcending == True:
@@ -153,31 +156,31 @@ class data:
                     if self.sortType != "Global Sales":
                         self.sortType = "Global Sales"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 2:
                     if self.sortType != "NA Sales":
                         self.sortType = "NA Sales"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 3:
                     if self.sortType != "EU Sales":
                         self.sortType = "EU Sales"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 4:
                     if self.sortType != "JP Sales":
                         self.sortType = "JP Sales"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 5:
                     if self.sortType != "Other Sales":
                         self.sortType = "Other Sales"
                     else:
-                        self.sortType = "Name"
+                        self.sortType = "Rank"
                     self.sortMain()
                 elif o == 6:
                     self.sortMain()
@@ -190,8 +193,9 @@ class data:
         print("Advanced DataFrame options")
         print(f"{getBoolCode(self.salesAsInt)}  1. Sales Displayed as Integers == {self.salesAsInt}{white}")
         print(f"  2. {blue}{self.entriesPerPage}{white} Entries Displayed Per Page")
-        print(f"{getBoolCode(False)}  3. Reset DataFrame{white}")
-        print("  4. Save and Return")
+        print(f"  3. Select Displayed Columns")
+        print(f"{getBoolCode(False)}  4. Reset DataFrame{white}")
+        print("  5. Save and Return")
         while True:
             try:
                 o = int(input("Enter the number of the option you want to select: "))
@@ -207,8 +211,10 @@ class data:
                 elif o == 2:
                     self.showXEntries()
                 elif o == 3:
-                    self.confirmReset()
+                    self.columns()
                 elif o == 4:
+                    self.confirmReset()
+                elif o == 5:
                     self.options()
             except:
                 pass
@@ -234,6 +240,44 @@ class data:
             self.options()
         else:
             self.advancedMain()
+    def columns(self):
+        blankspace()
+        def getItemColor(x):
+            if x in self.visibleColumns:
+                return("\x1b[0;38;2;0;119;255;49m")
+            else:
+                return("\x1b[0m")
+        print("DataFrame Column Visibility Options")
+        print()
+        print(f"{getItemColor("Rank")}  1. Rank\x1b[0m")
+        print(f"{getItemColor("Name")}  2. Name\x1b[0m")
+        print(f"{getItemColor("Year")}  3. Year\x1b[0m")
+        print(f"{getItemColor("Genre")}  4. Genre\x1b[0m")
+        print(f"{getItemColor("Publisher")}  5. Publisher\x1b[0m")
+        print(f"{getItemColor("NA_Sales")}  6. NA_Sales\x1b[0m")
+        print(f"{getItemColor("EU_Sales")}  7. EU_Sales\x1b[0m")
+        print(f"{getItemColor("JP_Sales")}  8. JP_Sales\x1b[0m")
+        print(f"{getItemColor("Other_Sales")}  9. Other_Sales\x1b[0m")
+        print(f"{getItemColor("Global_Sales")}  10. Global_Sales\x1b[0m")
+        print("  11. Save and Return")
+        print()
+        print(f"  The DataFrame Will Display The Highlighted Columns")
+        print()
+        o = None
+        while True:
+            try:
+                o = int(input("Enter the number of the option you want to select: "))
+                if o > 0 and o < 11:
+                    CList = ['Rank', 'Name', 'Platform', 'Year', 'Genre', 'Publisher', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']
+                    if CList[o-1] not in self.visibleColumns:
+                        self.visibleColumns.append(CList[o-1])
+                    else:
+                        self.visibleColumns.remove(CList[o-1])
+                    self.filterGenre()
+                elif o == 11:
+                    self.filterMain()
+            except:
+                pass     
     def filterMain(self):
         def MainFilterDisplay(x):
             if x == True:
@@ -615,6 +659,7 @@ class data:
                 pass          
     def compileDF(self):
         blankspace()
+        self.sortedDF = self.df
         def convertSortBy():
             if self.sortType == "Global Sales":
                 self.sortBy = "Global_Sales"
@@ -628,39 +673,83 @@ class data:
                 self.sortBy = "Other_Sales"
             else:
                 self.sortBy = self.sortType
+        def filterYearCompile():
+            if self.YFO_After == True:
+                self.sortedDF = self.sortedDF[self.sortedDF["Year"] > self.YFO_Threshold]
+            else:
+                self.sortedDF = self.sortedDF[self.sortedDF["Year"] < self.YFO_Threshold]
+        def filterGSalesCompile():
+            if self.GSFO_Greater_Than == True:
+                self.sortedDF = self.sortedDF[self.sortedDF["Global_Sales"] > self.GSFO_Sales_Amount]
+            else:
+                self.sortedDF = self.sortedDF[self.sortedDF["Global_Sales"] < self.GSFO_Sales_Amount]
+        def filterNASalesCompile():
+            if self.NASFO_Greater_Than == True:
+                self.sortedDF = self.sortedDF[self.sortedDF["NA_Sales"] > self.NASFO_Sales_Amount]
+            else:
+                self.sortedDF = self.sortedDF[self.sortedDF["NA_Sales"] < self.NASFO_Sales_Amount]
+        def filterEUSalesCompile():
+            if self.EUSFO_Greater_Than == True:
+                self.sortedDF = self.sortedDF[self.sortedDF["EU_Sales"] > self.EUSFO_Sales_Amount]
+            else:
+                self.sortedDF = self.sortedDF[self.sortedDF["EU_Sales"] < self.EUSFO_Sales_Amount]
+        def filterJPSalesCompile():
+            if self.JPSFO_Greater_Than == True:
+                self.sortedDF = self.sortedDF[self.sortedDF["JP_Sales"] > self.JPSFO_Sales_Amount]
+            else:
+                self.sortedDF = self.sortedDF[self.sortedDF["JP_Sales"] < self.JPSFO_Sales_Amount]
+        def filterOSalesCompile():
+            if self.OSFO_Greater_Than == True:
+                self.sortedDF = self.sortedDF[self.sortedDF["Other_Sales"] > self.OSFO_Sales_Amount]
+            else:
+                self.sortedDF = self.sortedDF[self.sortedDF["Other_Sales"] < self.OSFO_Sales_Amount]
+        def filterGenreCompile():
+            for i, row in self.sortedDF.iterrows():
+                if self.GFO_Include == True:
+                    if row["Genre"] not in self.GFO_List:
+                        self.sortedDF.drop(index=i, inplace=True)
+                if self.GFO_Include == False:
+                    if row["Genre"] in self.GFO_List:
+                        self.sortedDF.drop(index=i, inplace=True)
         convertSortBy()
-        print(self.entriesPerPage)
-        print(self.sortBy)
-        print(self.sortAcending)
-        if self.GSFO_Greater_Than == True:    
-            self.df = self.df.loc[df["Global_Sales"] > (self.GSFO_Sales_Amount)]
-        elif self.GSFO_Greater_Than == False:    
-            self.df = self.df.loc[df["Global_Sales"] < (self.GSFO_Sales_Amount)]
-        if self.NASFO_Greater_Than == True:    
-            self.df = self.df.loc[df["NA_Sales"] > (self.NASFO_Sales_Amount)]
-        elif self.NASFO_Greater_Than == False:    
-            self.df = self.df.loc[df["NA_Sales"] < (self.NASFO_Sales_Amount)]
-        if self.EUSFO_Greater_Than == True:    
-            self.df = self.df.loc[df["EU_Sales"] > (self.EUSFO_Sales_Amount)]
-        elif self.EUSFO_Greater_Than == False:    
-            self.df = self.df.loc[df["EU_Sales"] < (self.EUSFO_Sales_Amount)]
-        if self.JPSFO_Greater_Than == True:    
-            self.df = self.df.loc[df["JP_Sales"] > (self.JPSFO_Sales_Amount)]
-        elif self.JPSFO_Greater_Than == False:    
-            self.df = self.df.loc[df["JP_Sales"] < (self.JPSFO_Sales_Amount)]
-        if self.OSFO_Greater_Than == True:    
-            self.df = self.df.loc[df["Other_Sales"] > (self.OSFO_Sales_Amount)]
-        elif self.OSFO_Greater_Than == False:    
-            self.df = self.df.loc[df["Other_Sales"] < (self.OSFO_Sales_Amount)]        
-        if self.YFO_After == True:    
-            self.df = self.df.loc[df["Year"] > (self.YFO_Threshold)]
-        elif self.YFO_After == False:    
-            self.df = self.df.loc[df["Year"] < (self.YFO_Threshold)]
-        print(self.df.sort_values(by=(self.sortBy), ascending=(self.sortAcending)).head(self.entriesPerPage))
+        if self.salesAsInt == False:
+            self.getInt()
+        filterYearCompile()
+        filterGSalesCompile()
+        filterNASalesCompile()
+        filterEUSalesCompile()
+        filterJPSalesCompile()
+        filterOSalesCompile()
+        filterGenreCompile()
+        if self.salesAsInt == False:
+            self.getFloat()
+        self.sortedDF.sort_values(by=(self.sortBy), ascending=(self.sortAcending), inplace=True)
+    def output(self):
+        self.compileDF()
+        self.page = 1
+        def view():
+            blankspace()
+            blankspace()
+            print("======================================================================================")
+            print(f"   DataFrame Viewer - Page {self.page}")
+            print("======================================================================================")
+            print()
+            print(self.sortedDF[self.visibleColumns].iloc[((self.entriesPerPage*self.page)-self.entriesPerPage):(self.entriesPerPage*self.page)])
+            print()
+            print("======================================================================================")
+            print(f"Page {self.page} | Showing {self.entriesPerPage} Items Per Page")
+            print()
+            while True:
+                try:
+                    o = int(input("Navigate to page number: "))
+                    self.page = o
+                    view()
+                except:
+                    pass
+        view()
 df = data("/workspaces/Coding-2-PANDAS-Project/vgsales.csv")
 blue = "\x1b[0;38;2;0;119;255;49m"
 white = "\x1b[0m"
-# print(df.df.sort_values(by="Year").head())
 def blankspace():
     for i in range(50):
         print()
@@ -669,7 +758,4 @@ def getBoolCode(x):
         return("\x1b[0;38;2;0;255;0;49m")
     else:
         return("\x1b[0;38;2;255;0;0;49m")
-# print(df.df["Genre"].unique())
-# sorted_df = df.df.sort_values(by="Global_Sales", ascending=True)
-# print(sorted_df.head(10))
-df.options() # This calls the first method so the program starts
+df.options()
